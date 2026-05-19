@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>«Fae Touch» Prompt Pack</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #ffb6c1; /* Нежно-розовый цвет для заголовка */
+            text-align: center;
+        }
+        .disclaimer {
+            background-color: #1e1e1e;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+            border-left: 4px solid #ffb6c1;
+        }
+        .prompt-card {
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .prompt-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .prompt-content {
+            padding: 15px;
+        }
+        .prompt-text {
+            background-color: #000;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            color: #a5d6ff;
+            margin-bottom: 15px;
+            word-wrap: break-word;
+        }
+        .copy-btn {
+            background-color: #ffb6c1;
+            color: #121212;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .copy-btn:active {
+            background-color: #ff9cb0;
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>✨ «Fae Touch» Prompt Pack</h1>
+
+    <div class="disclaimer">
+        <strong>✨ Дисклеймер от автора (читать перед тем, как сыпать пыльцой):</strong><br><br>
+        Все размеры и пропорции на сгенерированных артах — это полная условность... 
+        (Тут ты сможешь вставить весь свой смешной текст из Teletype).
+    </div>
+
+    <div class="prompt-card">
+        <img src="https://via.placeholder.com/600x400/2a2a2a/ffb6c1?text=Тут+будет+твоя+фея" alt="Fairy Image" class="prompt-image">
+        
+        <div class="prompt-content">
+            <div class="prompt-text" id="prompt1">
+                masterpiece, best quality, ethereal fairy with glowing pink hair, delicate translucent wings, sitting on a giant green lily pad, soft lighting, magical atmosphere --ar 3:4
+            </div>
+            <button class="copy-btn" onclick="copyPrompt('prompt1', this)">Скопировать промпт</button>
+        </div>
+    </div>
+
+    <script>
+        // Простой скрипт для копирования текста в буфер обмена телефона
+        function copyPrompt(elementId, button) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                // Меняем текст кнопки для обратной связи
+                const originalText = button.innerText;
+                button.innerText = "✨ Скопировано!";
+                button.style.backgroundColor = "#98fb98"; // Меняем цвет на зеленый
+                
+                // Возвращаем обратно через 2 секунды
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.style.backgroundColor = "#ffb6c1";
+                }, 2000);
+            }).catch(err => {
+                console.error('Ошибка копирования: ', err);
+            });
+        }
+    </script>
+
+</body>
+</html>
