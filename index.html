@@ -3,113 +3,603 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>«Fae Touch» Prompt Pack</title>
+    <title>Fae Touch Prompt Pack</title>
     <style>
+        @font-face {
+            font-family: 'Jellyka Love and Passion';
+            src: url('img/RUSJellyka - Love and Passion.ttf') format('truetype');
+        }
+
+        html, body {
+            overflow-x: hidden;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
-            background-color: #121212;
-            color: #e0e0e0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
+            background: #251b1e;
+            color: #ebdce0;
+            font-family: 'Cambria', 'Georgia', 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
-        h1 {
-            color: #ffb6c1; /* Нежно-розовый цвет для заголовка */
+        
+        .header-wrap {
+            position: relative;
             text-align: center;
+            width: 100%;
+            height: 380px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('img/prompt_pack.png');
+            background-size: cover;
+            background-position: center top;
+            margin-bottom: 0;
         }
-        .disclaimer {
-            background-color: #1e1e1e;
-            padding: 15px;
-            border-radius: 10px;
+        
+        .header-wrap::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to bottom, rgba(37, 27, 30, 0) 0%, #251b1e 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        h1 {
+            font-family: 'Jellyka Love and Passion', 'Cambria', serif;
+            font-size: 72px;
+            color: #fffaf0;
+            margin: 0;
+            position: relative;
+            z-index: 3;
+            letter-spacing: 1px;
+            text-shadow: 0 0 25px rgba(246, 215, 196, 0.7), 0 2px 10px rgba(53, 37, 41, 0.9);
+            font-weight: normal;
+        }
+        
+        .subtitle {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: #f6d7c4;
+            margin-top: 5px;
+            position: relative;
+            z-index: 3;
+            opacity: 0.9;
+            text-shadow: 0 2px 8px rgba(53, 37, 41, 0.8);
+        }
+
+        .container {
+            max-width: 650px; 
+            margin: 0 auto;
+            padding: 30px 20px 40px;
+            position: relative;
+            z-index: 4;
+        }
+        
+        .section-title {
+            text-align: center;
+            color: #fffaf0;
+            font-size: 18px;
+            margin-top: 0;
             margin-bottom: 30px;
-            font-size: 0.9em;
-            border-left: 4px solid #ffb6c1;
+            font-weight: normal;
+            letter-spacing: 2px;
         }
-        .prompt-card {
-            background-color: #1e1e1e;
-            border-radius: 15px;
-            overflow: hidden;
+        
+        .section-title::before, .section-title::after {
+            content: " ✦ ";
+            color: #f1b2b8;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+        
+        .disclaimer-box {
+            background: rgba(56, 40, 44, 0.45);
+            border: 1px solid rgba(241, 178, 184, 0.2);
+            border-radius: 14px;
+            padding: 22px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #e3d3d7;
+            text-align: center;
             margin-bottom: 25px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            box-shadow: inset 0 0 15px rgba(28, 19, 21, 0.4);
+            backdrop-filter: blur(8px);
         }
+
+        /* КНОПКА TELEGRAM */
+        .tg-container {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+        
+        .tg-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(48, 34, 38, 0.7);
+            border: 1px solid rgba(241, 178, 184, 0.3);
+            color: #f1b2b8;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(28, 19, 21, 0.4);
+        }
+
+        .tg-btn:hover {
+            background: rgba(241, 178, 184, 0.15);
+            color: #fffaf0;
+            border-color: #fffaf0;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(241, 178, 184, 0.2);
+        }
+
+        .tg-btn svg {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            fill: currentColor;
+        }
+        
+        /* ЛЕНТА КАРТОЧЕК */
+        .prompt-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .prompt-card {
+            background: #2b1f23;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(241, 178, 184, 0.1);
+        }
+        
+        .image-container {
+            width: 100%;
+            background: #1a1214;
+            display: block;
+        }
+        
         .prompt-image {
             width: 100%;
             height: auto;
             display: block;
         }
-        .prompt-content {
-            padding: 15px;
+        
+        .card-body {
+            padding: 25px;
         }
-        .prompt-text {
-            background-color: #000;
-            padding: 10px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 14px;
-            color: #a5d6ff;
+        
+        .prompt-meta {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 12px;
+            color: #f1b2b8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             margin-bottom: 15px;
-            word-wrap: break-word;
         }
+        
+        /* ОКНО ПРОМПТА С РАСТЯЖКОЙ */
+        .prompt-box {
+            background: #1a1214;
+            border: 1px solid rgba(241, 178, 184, 0.08);
+            border-radius: 10px;
+            padding: 18px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13.5px;
+            color: #fffaf0;
+            line-height: 1.6;
+            word-break: break-word;
+            margin-bottom: 20px;
+            user-select: all;
+            
+            min-height: 120px;
+            height: 160px;
+            overflow-y: auto; 
+            resize: vertical;
+            white-space: pre-wrap;
+        }
+
+        .prompt-box::-webkit-scrollbar {
+            width: 8px;
+        }
+        .prompt-box::-webkit-scrollbar-track {
+            background: #1a1214;
+            border-radius: 10px;
+        }
+        .prompt-box::-webkit-scrollbar-thumb {
+            background: rgba(241, 178, 184, 0.2);
+            border-radius: 10px;
+        }
+        .prompt-box::-webkit-scrollbar-thumb:hover {
+            background: rgba(241, 178, 184, 0.4);
+        }
+        
         .copy-btn {
-            background-color: #ffb6c1;
-            color: #121212;
-            border: none;
-            padding: 12px;
+            background: none;
+            border: 1px solid #f1b2b8;
+            color: #f1b2b8;
             width: 100%;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 14px;
+            border-radius: 10px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 13px;
             font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.2s ease;
+            outline: none;
         }
+        
         .copy-btn:active {
-            background-color: #ff9cb0;
+            background: rgba(241, 178, 184, 0.15);
             transform: scale(0.98);
+        }
+        
+        .footer {
+            text-align: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 11px;
+            color: rgba(241, 178, 184, 0.4);
+            margin-top: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <h1>✨ «Fae Touch» Prompt Pack</h1>
-
-    <div class="disclaimer">
-        <strong>✨ Дисклеймер от автора (читать перед тем, как сыпать пыльцой):</strong><br><br>
-        Все размеры и пропорции на сгенерированных артах — это полная условность... 
-        (Тут ты сможешь вставить весь свой смешной текст из Teletype).
+    <div class="header-wrap">
+        <h1>fae touch</h1>
+        <div class="subtitle">by cadis</div>
     </div>
 
-    <div class="prompt-card">
-        <img src="https://via.placeholder.com/600x400/2a2a2a/ffb6c1?text=Тут+будет+твоя+фея" alt="Fairy Image" class="prompt-image">
+    <div class="container">
         
-        <div class="prompt-content">
-            <div class="prompt-text" id="prompt1">
-                masterpiece, best quality, ethereal fairy with glowing pink hair, delicate translucent wings, sitting on a giant green lily pad, soft lighting, magical atmosphere --ar 3:4
-            </div>
-            <button class="copy-btn" onclick="copyPrompt('prompt1', this)">Скопировать промпт</button>
+        <div class="section-title">Overview</div>
+        
+        <div class="disclaimer-box">
+            Все размеры и пропорции на сгенерированных артах — это полная условность и плод воспаленного воображения нейросети и автора. Сегодня ваша фея может грациозно лежать на кувшинке, а завтра — случайно растоптать этот пруд вместе с лягушками.<br><br>
+            Автор не несет ответственности за внезапно отваливающиеся крылья, лишние пальцы, которые нейросеть заботливо пришивает к рукам, и любые другие мутации вашей фейри. Промпты созданы для развлечения.<br><br>
+            Не забывайте делиться со мной вашими результатами и ставить реакции. Каждый комментарий делает меня чуточку счастливее.<br><br>
+            Приятных генераций! 🦋
         </div>
+
+        <div class="prompt-card" style="margin-bottom: 30px;">
+            <div class="card-body">
+                <div class="prompt-meta" style="color: #e3d3d7; text-transform: none; letter-spacing: normal; font-size: 13px; line-height: 1.5; margin-bottom: 15px;">
+                    <strong style="color: #f1b2b8; text-transform: uppercase; letter-spacing: 2px; font-size: 11px;">✦ Промпт-помощник ✦</strong><br><br>
+                    Добавьте этот текст к вашему промпту, если нейросеть искажает внешность (меняет черты лица, цвет волос или фигуру). Этот блок жестко зафиксирует внимание ИИ на оригинальной внешности вашего персонажа.
+                </div>
+                <div class="prompt-box" id="p_helper" style="height: auto; min-height: 80px; resize: none;">[CRITICAL: The reference image(s) above show the EXACT appearance of the character(s). You MUST precisely copy their: face structure, eye color, hair color and style, skin tone, body type. Do not deviate from the reference appearances.]</div>
+                <button class="copy-btn" onclick="copyText('p_helper', this)">Скопировать промпт</button>
+            </div>
+        </div>
+
+        <div class="tg-container">
+            <a href="https://t.me/cadis_ai" target="_blank" class="tg-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.892-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+                Подписаться на автора
+            </a>
+        </div>
+
+        <div class="section-title">Prompt Collection for Nano Banana Pro</div>
+
+        <div class="prompt-feed">
+            
+            <div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_1.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #1 — Ethereal Glow</div>
+                    <div class="prompt-box" id="p1">STYLE: 
+SCENE: A delicate, ethereal illustration of a figure standing in profile against a soft, seamless [pastel pink] background. The figure's body is turned sideways, showcasing intricate, translucent fairy wings extending from the back. The lighting is beautifully crafted with a soft backlight and rim light, causing the edges of the wings and the loose strands of hair to glow with a luminous, halo-like effect. The wings reveal gossamer-like textures and delicate veining as light passes through them. The figure's head is turned slightly over the shoulder, offering a gentle, partial profile view directed toward the camera. One hand is raised elegantly toward the foreground, fingers lightly brushing against a loose, softly glowing strand of hair near the face. Tiny, sparkling motes of glowing pollen are gently falling and swirling in the air around the wings and figure, catching the light like stardust. The clothing is a whimsical, layered ensemble of diaphanous fabrics, featuring draped tulle, soft ruffles, and organic, petal-like hemlines that float weightlessly. The overall composition is serene, enchanting, and richly illuminated, focusing on the graceful posture and the magical, airy atmosphere.
+FORMAT: 4/3</div>
+                    <button class="copy-btn" onclick="copyText('p1', this)">Скопировать промпт</button>
+                </div>
+            </div>
+
+            <div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_2.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #2 — Meadow Glimmer</div>
+                    <div class="prompt-box" id="p2">STYLE: 
+SCENE: A delicate, ethereal illustration of a figure standing in profile in a lush, blooming flower meadow. The figure's body is turned sideways, showcasing intricate, translucent fairy wings extending from the back. The lighting is beautifully crafted with a soft backlight and rim light, causing the edges of the wings and the loose strands of hair to glow with a luminous, halo-like effect. The wings reveal gossamer-like textures and delicate veining as light passes through them. The figure's head is turned slightly over the shoulder, offering a gentle, partial profile view directed toward the camera. One hand is raised elegantly toward the foreground, fingers lightly brushing against a loose, softly glowing strand of hair near the face. Tiny, sparkling motes of glowing pollen are gently falling and swirling in the air around the wings and figure, catching the light like stardust. The clothing is a whimsical, layered ensemble of diaphanous fabrics, featuring draped tulle, soft ruffles, and organic, petal-like hemlines that float weightlessly. Instead of shoes, the figure's bare feet and lower legs are gracefully wrapped in crisscrossing, ribbon-like strips of soft fabric that match the style and flow of the dress, mimicking the winding pattern of vines but made entirely of delicate textile. The meadow around the figure is filled with soft, out-of-focus blooms, contributing to a serene, enchanting, and richly illuminated magical atmosphere.
+FORMAT: 3/4</div>
+                    <button class="copy-btn" onclick="copyText('p2', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_3.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #3 — Fairy in Flight</div>
+                    <div class="prompt-box" id="p3">STYLE: 
+SCENE: A dynamic, ethereal illustration of a figure in mid-flight above a lush, blooming flower meadow. The camera angle is slightly low, looking up at the soaring figure to emphasize a sense of weightless motion. The figure is suspended in the air, leaning forward dynamically, with intricate, translucent fairy wings fully extended and caught mid-beat. The lighting features a soft backlight and rim light, causing the edges of the wings and the wildly fluttering loose strands of hair to glow with a luminous, halo-like effect. The figure's head is turned back over the shoulder, offering a partial profile view with an expression of effortless grace. One arm is reaching forward into the wind, while the other is swept back. Tiny, sparkling motes of glowing pollen swirl violently in the air currents generated by the wings. The clothing is a whimsical, layered ensemble of diaphanous fabrics, draped tulle, and soft ruffles that are dramatically blowing back in the wind. The figure's bare lower legs are wrapped in crisscrossing, ribbon-like strips of soft fabric that trail beautifully in the air, mimicking the flow of vines. The meadow below is a soft, out-of-focus blur of blooms, enhancing the speed and magical atmosphere of the flight. 
+FORMAT: 4/3</div>
+                    <button class="copy-btn" onclick="copyText('p3', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_4.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #4 — Blossom Cradle</div>
+                    <div class="prompt-box" id="p4">STYLE: 
+SCENE: A dynamic, ethereal illustration of a figure sitting gracefully in the wide, flat center of a massive, fully opened water lily-like flower in a lush meadow. The flower's petals are spread wide, providing a natural, open seat. The figure is captured in a lively, mid-action pose, leaning slightly forward with one knee drawn up and the other leg dangling casually over the edge of the open petals. The figure's back is arched beautifully as intricate, translucent fairy wings are spread wide open, capturing a sense of movement. The figure's face is turned toward the camera, illuminated by a gentle, soft smile. The lighting is beautifully crafted with a soft backlight and rim light, causing the wide-spread wings and loose strands of hair to glow with a luminous effect, revealing gossamer-like textures and delicate veining. Tiny, sparkling motes of glowing pollen swirl dynamically around the wide wings and the large flower. The clothing is a whimsical, layered ensemble of diaphanous fabrics that spill and drape dynamically over the wide flower petals. The figure's bare feet and lower legs are gracefully wrapped in crisscrossing, ribbon-like strips of soft fabric. The meadow around the large flower is filled with soft, out-of-focus blooms, creating a serene, enchanting, and magical atmosphere.
+FORMAT: 3/4</div>
+                    <button class="copy-btn" onclick="copyText('p4', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_5.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #5 — Sisterly Wreath Exchange</div>
+                    <div class="prompt-box" id="p5">STYLE: 
+SCENE: A delicate, ethereal illustration of two figures in a lush, sunlit grassy field, captured from an intimate over-the-shoulder perspective. The camera is positioned behind the first figure in the immediate foreground, rendering their back, shoulder, and hands completely out of focus with a heavy blur (depth of field). The blurred hands of this foreground figure are gently holding and lowering a woven flower crown. The sharp focus of the image is entirely on the second figure, who is positioned slightly lower and facing the camera. The second figure is looking up at the foreground figure with a soft, warm, and radiant smile. Both figures have translucent, intricate fairy wings extending from their backs. Tiny, sparkling motes of glowing pollen swirl gently in the air. The visible figure is wearing a whimsical, layered ensemble of diaphanous fabrics with draped tulle and organic, petal-like hemlines. The background is a sprawling, soft-focus field of tall, swaying grass and wildflowers, bathed in warm, diffused, dreamlike sunlight. The overall composition is serene, enchanting, and richly illuminated, emphasizing the tender connection between the two figures.
+FORMAT: 4/3</div>
+                    <button class="copy-btn" onclick="copyText('p5', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_6.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #6 — Giant Fluff Encounter</div>
+                    <div class="prompt-box" id="p6">STYLE: 
+SCENE: A dynamic, enchanting illustration showing a massive scale difference. A tiny, Tinkerbell-sized figure is hovering or standing on tiptoes in mid-air, leaning forward dynamically with both arms outstretched, reaching toward the giant face of a massive, incredibly fluffy calico cat. The cat's face dominates the right side of the frame, its fur immensely thick and soft, with distinct patches of orange, black, and white. The tiny figure's body is angled forward, showcasing intricate, translucent fairy wings extending from the back, fluttering with movement. The lighting is crafted with a soft backlight, causing the edges of the wings and the loose strands of hair to glow with a luminous effect. Tiny, sparkling motes of glowing pollen swirl in the air around the figure. The clothing is a whimsical, layered ensemble of diaphanous fabrics, featuring draped tulle and organic, petal-like hemlines that flutter dynamically. The figure's lower legs are gracefully wrapped in crisscrossing, ribbon-like strips of soft fabric. The background is a lush, blooming flower meadow, but instead of heavy blur, the depth of field is adjusted to create a rich, sparkling bokeh effect, with the distant flowers forming beautiful, distinct circles of light that enhance the magical atmosphere.
+FORMAT: 4/3</div>
+                    <button class="copy-btn" onclick="copyText('p6', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_7.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #7 — Joyful Fairy Hand-in-Hand</div>
+                    <div class="prompt-box" id="p7">STYLE: 
+SCENE: A dynamic, joyful illustration of two figures running through a lush, sunlit grassy field, captured with a slight dutch angle to emphasize movement and speed. The scene focuses on the first figure in the foreground, looking back over their shoulder with a wide, radiant, open-mouthed laugh, eyes crinkled in pure joy. This figure is reaching back, their hand firmly and affectionately clasping the hand of the second figure, who is being pulled along slightly behind, also sporting a bright, genuinely happy smile. Both figures have intricate, translucent fairy wings extending from their backs, fluttering and catching the warm, diffused sunlight, making the delicate veining glow. Tiny, sparkling motes of glowing pollen are whipped up into the air around them by their movement. Both are wearing whimsical, layered ensembles of diaphanous fabrics with draped tulle and petal-like hemlines that are actively blowing and swirling in the wind of their run. Instead of shoes, their bare lower legs and feet are elegantly crisscrossed with long, soft ribbons mimicking delicate vines, the ends of the ribbons trailing and fluttering wildly behind them as they run. The background is a soft-focus, sprawling field of tall, swaying grass and wildflowers, bathed in warm, golden-hour sunlight. The overall composition is energetic, incredibly expressive, and full of life, focusing on the emotional connection and the magical, airy movement.
+FORMAT: 4/3</div>
+                    <button class="copy-btn" onclick="copyText('p7', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_8.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #8 — Sunlit Pond Daydream</div>
+                    <div class="prompt-box" id="p8">STYLE: 
+SCENE: A serene, high-angle illustration. A figure is lying gracefully on their stomach atop a massive, flat green lily pad floating in a clear, shallow lake. Beside the figure on the pad rests a large, blooming lotus flower. The figure's upper body is slightly propped up, with one hand resting on the pad, supporting their chin in a relaxed, dreamy posture. The other arm reaches downward over the edge of the lily pad, fingertips lightly brushing the sparkling surface of the water, creating gentle ripples. The figure's back is visible, showcasing intricate, translucent fairy wings that lay flat against their back and the pad, catching the light. The clothing is a whimsical, layered ensemble of diaphanous fabrics, featuring draped tulle, soft ruffles, and organic, petal-like hemlines that spread softly over the lily pad. The figure's lower legs and bare feet trail elegantly, wrapped in crisscrossing, ribbon-like strips of soft fabric that match the dress, mimicking vines. The setting is a luminous aquatic environment. The background is an expanse of water reflecting bright highlights, dotted with smaller lily pads. Golden hour lighting bathes the scene, creating warm, luminous glints on the undulating surface of the water and softly illuminating the figure, the lotus, and the gossamer textures of the wings. The depth of field is deep and crisp, keeping the water ripples, the lotus, the figure, and the wings in sharp focus.
+FORMAT: 4/3</div>
+                    <button class="copy-btn" onclick="copyText('p8', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_9.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #9 — The Fairy and the Silk Moth</div>
+                    <div class="prompt-box" id="p9">STYLE: 
+SCENE: A heartwarming, deeply cozy, and ethereal nocturnal illustration. The scene centers on a figure intimately embracing a giant, incredibly fluffy white moth, holding it close to their chest like a beloved plush teddy bear. The figure is seated comfortably, eyes closed in a peaceful, contented expression, with their arms wrapped securely around the moth's thick, downy thorax. The moth is oversized, its large, feathery antennae resting gently against the figure's head, and its delicate, patterned wings partially draped over the figure like a soft blanket. The figure is wearing a whimsical, layered ensemble of diaphanous fabrics, featuring draped tulle and soft ruffles that blend seamlessly with the moth's fluff. Instead of shoes, their bare lower legs are elegantly wrapped in long, soft ribbons. Tiny, sparkling motes of glowing pollen gently drift in the air, falling from the moth's wings. The background is a soft-focus, enchanted nighttime forest, bathed in the cool, silvery glow of moonlight filtering through unseen trees. The lighting is moody and magical, with a soft rim light illuminating the extreme fluffiness of the moth and the delicate textures of the figure's clothing, creating a serene, dreamlike atmosphere.
+FORMAT: 4/3</div>
+                    <button class="copy-btn" onclick="copyText('p9', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_10.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #10 — Gentle Guardian of the Woods</div>
+                    <div class="prompt-box" id="p10">STYLE: 
+SCENE: A delicate, enchanting portrait illustration captured from a side profile angle. The composition focuses intimately on a figure and a majestic deer with magnificent, intricate antlers that gleam with a warm, gilded finish. The figure is positioned close to the deer, wrapping their arms affectionately around the animal's thick, textured neck. The figure's head is tilted slightly, resting gently against the deer's fur, and their face bears a soft, tender, and serene smile. The deer's head is held high, with a calm and gentle demeanor. The figure has translucent, gossamer-like fairy wings extending from their back, catching subtle light. They are wearing a whimsical, layered ensemble of diaphanous fabrics with organic, petal-like hemlines. The lighting is warm and diffused, creating a soft glow that highlights the gleaming antlers, the delicate textures of the wings, and the emotional warmth of the embrace. The background is a soft-focus, blurred natural setting, evoking the feeling of a quiet, magical glade.
+FORMAT: 3/4</div>
+                    <button class="copy-btn" onclick="copyText('p10', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_11.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #11 — Graceful Waters</div>
+                    <div class="prompt-box" id="p11">STYLE: 
+SCENE: A wide-angle, full-body illustration capturing a serene moment. A figure is standing ankle-deep in a clear, shallow lake filled with floating water lilies and large green lily pads. The camera angle is positioned at a medium distance, ensuring the entire figure and their expansive fairy wings are completely visible within the frame. The figure is gracefully bending forward at the waist, reaching one hand down toward the water's surface to gently retrieve or adjust a long, trailing ribbon that has dipped into the lake. The head is tilted downward, focusing on the water, with hair softly falling forward. Intricate, translucent fairy wings extend fully from the figure's back, beautifully spread and catching the light. The clothing is a whimsical, layered ensemble of diaphanous fabrics, featuring draped tulle, soft ruffles, and organic, petal-like hemlines. The figure's bare feet and lower legs are gracefully wrapped in crisscrossing, ribbon-like strips of soft fabric that match the style of the dress. The setting is a luminous aquatic environment. The water is sparkling and gently swirling around the figure's wrapped ankles. The background is an expanse of water reflecting bright highlights. Golden hour lighting bathes the scene, creating warm, luminous glints on the undulating surface of the water and softly illuminating the figure's back, hair, and the delicate, gossamer textures of the wings. The depth of field keeps the water ripples, the water lilies, the entire figure, and the wings in sharp focus.
+FORMAT: 4/3</div>
+                    <button class="copy-btn" onclick="copyText('p11', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_pack.png" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #12 — A Moment of Care</div>
+                    <div class="prompt-box" id="p12">STYLE: 
+SCENE: A delicate, ethereal illustration of two figures in a lush, sunlit grassy field. The scene captures a tender, intimate moment of one figure gently braiding the hair of the other. The first figure sits gracefully on the ground, facing slightly away, while the second figure kneels behind, hands softly working a long, intricate braid. Both figures have translucent, intricate fairy wings extending from their backs, catching the soft backlight and rim light, making the delicate veining and edges glow luminously. Tiny, sparkling motes of glowing pollen swirl gently in the air around them. Both figures are wearing whimsical, layered ensembles of diaphanous fabrics, featuring draped tulle, soft ruffles, and organic, petal-like hemlines. Instead of shoes, their bare lower legs and feet are elegantly crisscrossed and wrapped in long, soft ribbons that mimic the look of delicate vines, matching the subtle tones of their garments. The background is a sprawling, soft-focus field of tall, swaying grass and wildflowers, bathed in warm, diffused, dreamlike sunlight. The overall composition is serene, enchanting, and richly illuminated, focusing on the graceful interaction and magical atmosphere.
+FORMAT: 4/3</div>
+                    <button class="copy-btn" onclick="copyText('p12', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_13.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #13 — Waiting Out the Shower</div>
+                    <div class="prompt-box" id="p13">STYLE: 
+SCENE: A cozy, enchanting illustration of two tiny, delicate figures taking shelter from the rain beneath the massive, overarching cap of a large forest mushroom. The scale clearly shows the figures are miniature, sitting side-by-side on the damp grass, their shoulders touching affectionately as they sleep peacefully.
+The first figure is leaning gently against the second. They wear a whimsical dress made of diaphanous, layered fabrics with soft ruffles, their lower legs wrapped in crisscrossing, ribbon-like strips of textile that mimic winding vines. From their back extend translucent, gossamer-like wings with delicate, rounded veining.
+The second figure serves as a soft support, their head resting lightly against the first figure's hair. This figure wears a similarly styled, ethereal outfit of draped tulle and petal-like hemlines, with the same fabric ribbons winding up their calves. Their wings are distinct, featuring a sharper, more elongated, butterfly-like structure, though equally translucent and delicate.
+The camera angle is a medium shot, positioned at the ground level of the grass, looking slightly up at the figures under the mushroom cap to emphasize their small size. The background is a soft, blurred view of a rainy, dim forest with heavy, falling raindrops. The lighting under the mushroom is warm and subdued, creating a safe, sheltered atmosphere, while the edges of the mushroom and the falling rain catch soft, cool ambient light. The overall mood is deeply serene and comforting.
+FORMAT: 3/4</div>
+                    <button class="copy-btn" onclick="copyText('p13', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_14.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #14 — Lotus Umbrella</div>
+                    <div class="prompt-box" id="p14">STYLE: 
+SCENE: A delicate, atmospheric illustration of a single figure taking shelter from a gentle rain. The figure is crouching slightly or standing with knees slightly bent, holding a tall, sturdy plant stem with a large, overarching leaf or flower acting as a makeshift umbrella. Raindrops are visible falling softly around the figure, with some splashing gently against the top of the leaf umbrella. The figure has intricate, translucent fairy wings extending from the back, now slightly drooping or pulled close to avoid the wetness. The lighting is moody and overcast, yet soft, highlighting the glistening moisture on the wings, the plant stem, and the surrounding environment. The clothing is a whimsical, layered ensemble of diaphanous fabrics, featuring draped tulle and organic, petal-like hemlines that look slightly damp. The bare lower legs and feet are elegantly crisscrossed and wrapped in long, soft ribbons that mimic the look of delicate vines. The background is a soft-focus, blurred natural setting, deeply saturated with the muted, cool tones of a rainy day. The overall composition is intimate, enchanting, and slightly melancholic, focusing on the fragile beauty of the figure seeking refuge from the elements.
+FORMAT: 3/4</div>
+                    <button class="copy-btn" onclick="copyText('p14', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_15.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #15 — Moonlit Weaver</div>
+                    <div class="prompt-box" id="p15">STYLE: 
+SCENE: A delicate, ethereal illustration of a figure sitting gracefully on a thick, textured tree branch bathed in soft, silvery moonlight. The scene is set against a serene, dark night background illuminated by the moon's glow. The figure is positioned in a three-quarter profile, with one leg dangling elegantly from the branch. The figure's head is turned slightly over the shoulder, offering a gentle, partial profile view directed toward the camera. One hand is raised toward the foreground, fingers lightly brushing against a loose, softly glowing strand of hair near the face. Intricate, translucent fairy wings extend from the back, catching the moonlight and sparkling brilliantly, revealing gossamer-like textures and delicate veining. Tiny, sparkling motes of glowing pollen swirl in the cool night air around the wings. The clothing is a whimsical, layered ensemble of diaphanous fabrics, featuring draped tulle and organic, petal-like hemlines. Instead of shoes, the figure's bare feet and lower calves are elegantly wrapped in delicate, crisscrossing ribbons that match the soft hues of the dress, mimicking the winding of vines without being actual plants. The lighting is beautifully crafted with a cool lunar backlight and rim light, giving the edges of the wings, the ribbons, and the hair a luminous, magical halo effect. The overall composition is enchanting and richly illuminated, focusing on the graceful, seated posture and the mystical nocturnal atmosphere.
+FORMAT: 4/3</div>
+                    <button class="copy-btn" onclick="copyText('p15', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_16.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #16 — Blossom Swing</div>
+                    <div class="prompt-box" id="p16">STYLE: 
+SCENE: A dynamic, joyful, ethereal illustration of a single figure swinging high on a swing made of thick, blossoming floral vines. The scene is full of movement and life, capturing the figure mid-swing over the calm, reflective surface of a large, serene lake. The figure’s head is thrown back in a wide, unrestrained laugh, hair wildly caught in the wind. The body is angled dynamically, leaning back slightly with legs extended forward, emphasizing the motion of the swing. The figure is wearing a whimsical, layered ensemble of diaphanous fabrics, featuring draped tulle, soft ruffles, and organic, petal-like hemlines that billow and flutter wildly around them in the breeze. Intricate, translucent fairy wings extend from the back, catching the light. Instead of shoes, their bare lower legs and feet are elegantly crisscrossed and wrapped in long, soft ribbons that mimic the look of delicate vines. Tiny, sparkling motes of glowing pollen swirl rapidly in the air, trailing behind the movement. The background features a breathtaking, soft-focus environment: a shimmering lake surrounded by lush, weeping willow trees and vibrant wildflowers at the water's edge, all bathed in bright, warm, diffused sunlight. The lighting is beautifully crafted with a soft backlight, causing the edges of the wings, the flying hair, and the water droplets kicking up from the lake to glow luminously. The overall composition is energetic, enchanting, and richly illuminated.
+FORMAT: 16/9</div>
+                    <button class="copy-btn" onclick="copyText('p16', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_17.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #17 — Belonging</div>
+                    <div class="prompt-box" id="p17">STYLE: 
+SCENE: A delicate, ethereal close-up portrait illustration of a figure standing intimately close to a large, textured tree trunk. The framing focuses on the upper body and face. The figure's body is angled slightly toward the tree, with both hands raised and resting gently against the rough bark. The hands are positioned elegantly, fingers slightly curved, conveying a sense of tactile connection with the wood. The figure's face is turned toward the camera, illuminated by soft, dappled sunlight filtering through an unseen canopy above. The expression is serene and captivating, featuring a gentle, subtle smile that reaches the eyes. Behind the figure's shoulders, intricate, translucent fairy wings stretch outward, catching the light and displaying gossamer-like textures and delicate veining in soft focus. The clothing consists of layered, diaphanous fabrics with organic draping around the shoulders and neckline, blending seamlessly with the magical forest atmosphere. The background is a soft, blurred bokeh of lush foliage, emphasizing the sharp, beautiful details of the figure's face, the texture of the tree bark, and the luminous wings. The lighting is dreamy and diffused, creating a peaceful, enchanting mood.
+FORMAT: 4/3</div>
+                    <button class="copy-btn" onclick="copyText('p17', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_18.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #18 — Mothfairy's Grace</div>
+                    <div class="prompt-box" id="p18">STYLE: 
+SCENE: A delicate, mystical illustration of a moth-inspired figure standing in profile in a twilight, enchanted forest setting. The background features softly blurred, towering ancient trees, glowing bioluminescent flora, and tiny, floating fireflies casting a warm, magical ambiance. The figure's body is turned sideways, showcasing large, plush, white moth wings extending from the back, covered in a soft, velvety texture. Adorning the figure's head are a pair of elegant, feathery moth antennae. The lighting is crafted with a soft, glowing backlight from the enchanted forest, illuminating the edges of the fuzzy wings, the antennae, and the loose strands of hair, creating a luminous halo effect. Tiny, sparkling motes of glowing pollen swirl gently around the wings. The figure's head is turned slightly over the shoulder, offering a gentle, partial profile view directed toward the camera. One hand is raised elegantly toward the foreground, fingers lightly brushing against a loose strand of hair near the face. The clothing is a whimsical, layered dress made of soft, diaphanous fabrics, beautifully detailed with delicate, pristine white fur trim along the collar and edges, adding a cozy, textured feel. The overall composition is serene, enchanting, and richly detailed, focusing on the graceful posture and the cozy, magical atmosphere of a twilight moth.
+FORMAT: 3/4</div>
+                    <button class="copy-btn" onclick="copyText('p18', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_19.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #19 — The Sorrow of a Moth</div>
+                    <div class="prompt-box" id="p19">STYLE: 
+SCENE: A close-up portrait illustration of a melancholic moth-inspired figure in a mystical, dimly lit forest setting. The figure is leaning forward, with both elbows resting on an old, moss-covered wooden stump. The figure's hands are cupping their face, resting their chin in their palms, with a deeply sad, wistful expression. Adorning the figure's head are a pair of elegant, feathery moth antennae that are visibly drooping downwards, emphasizing the sorrowful mood. Behind the figure, large, plush, white moth wings with a soft, velvety texture are partially visible, resting limply. The clothing is a whimsical dress made of soft fabrics, detailed with delicate, pristine white fur trim along the collar, adding a cozy, textured feel. The figure's eyes are cast downwards, avoiding direct eye contact with the camera. The background is a beautifully blurred, enchanted forest with soft bokeh from glowing flora and tiny fireflies, creating a shallow depth of field that keeps the focus entirely on the figure's face and emotional state. The lighting is soft and moody, with gentle highlights catching the fuzziness of the antennae, the fur collar, and the edge of the wings.
+FORMAT: 3/4</div>
+                    <button class="copy-btn" onclick="copyText('p19', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_20.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #20 — My Precious</div>
+                    <div class="prompt-box" id="p20">STYLE: 
+SCENE: A macro-perspective, whimsical illustration of a tiny, mischievous figure sitting on the ornate rim of a massive, intricately carved wooden jewelry box. The figure's body is crouched low, angled slightly away from the camera, but the head is turned back over the shoulder, casting a sly, thrilling glance toward the viewer. The figure is clutching a gigantic, heavy gold ring set with an enormous, faceted gemstone tightly against their chest with both hands, treating it like a grand prize. Extending from the figure's back are delicate, translucent fairy wings, quivering slightly, their gossamer texture and delicate veins catching the light. The clothing is a whimsical, layered ensemble of diaphanous, petal-like fabrics that drape naturally over the crouching form. Scattered around the wooden surface are giant, gleaming pearls, each almost the size of the figure's head. The lighting is focused and dramatic, with a warm, golden spotlight illuminating the figure, the stolen ring, and the edges of the wings, while the background falls into a soft, velvety blur. The composition emphasizes the extreme contrast in scale and the playful, secretive atmosphere of the scene.
+FORMAT: 3/4</div>
+                    <button class="copy-btn" onclick="copyText('p20', this)">Скопировать промпт</button>
+                </div>
+            </div>
+<div class="prompt-card">
+                <div class="image-container">
+                    <img src="img/prompt_21.jpeg" alt="Fae Touch Art" class="prompt-image">
+                </div>
+                <div class="card-body">
+                    <div class="prompt-meta">Prompt #21 — The Meadow Tea Party</div>
+                    <div class="prompt-box" id="p21">STYLE: 
+SCENE: A highly detailed, whimsical macro illustration of a magical woodland tea party. In the center, a delicate figure with translucent, shimmering fairy wings sits gracefully cross-legged on a large, flat green leaf. The figure is wearing a soft, layered dress made of flower petals. To the figure's left sits a large, realistic, incredibly fluffy white moth with wide wings and feathery antennae. To the right sits a plump, realistic bumblebee covered in dense, golden-yellow and black fuzz. The three of them are gathered around a makeshift table formed by a flat, mossy stone. On the stone rest three tiny, intricately carved acorn-shell teacups. The fairy figure has one hand extended, delicately holding a tiny teapot made from a hollowed-out seed pod, as if pouring tea. The environment is a lush, miniature forest floor, surrounded by towering blades of grass, clover, and softly blurred wildflowers. The lighting is warm and golden, filtering through the green canopy above, creating beautiful bokeh effects in the background and highlighting the soft fuzz on the moth and bumblebee, as well as the delicate veining of the fairy's wings. The mood is peaceful, enchanting, and incredibly cozy.
+FORMAT: 3/4</div>
+                    <button class="copy-btn" onclick="copyText('p21', this)">Скопировать промпт</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="text-align: center; margin-top: 80px; margin-bottom: 20px;">
+            <div class="section-title" style="margin-bottom: 30px;">Спасибо за просмотр</div>
+            <div class="prompt-card" style="margin-bottom: 0;">
+                <div class="image-container">
+                    <img src="img/thank_you.png" alt="Thank You" class="prompt-image">
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">by cadis</div>
     </div>
 
     <script>
-        // Простой скрипт для копирования текста в буфер обмена телефона
-        function copyPrompt(elementId, button) {
+        function copyText(elementId, button) {
             const textToCopy = document.getElementById(elementId).innerText;
             navigator.clipboard.writeText(textToCopy).then(() => {
-                // Меняем текст кнопки для обратной связи
                 const originalText = button.innerText;
-                button.innerText = "✨ Скопировано!";
-                button.style.backgroundColor = "#98fb98"; // Меняем цвет на зеленый
+                button.innerText = "✦ Скопировано ✦";
+                button.style.backgroundColor = "rgba(241, 178, 184, 0.2)";
+                button.style.color = "#fffaf0";
+                button.style.borderColor = "#fffaf0";
                 
-                // Возвращаем обратно через 2 секунды
                 setTimeout(() => {
                     button.innerText = originalText;
-                    button.style.backgroundColor = "#ffb6c1";
-                }, 2000);
+                    button.removeAttribute('style');
+                }, 1500);
             }).catch(err => {
-                console.error('Ошибка копирования: ', err);
+                console.error('Copy Error', err);
             });
         }
     </script>
-
 </body>
 </html>
